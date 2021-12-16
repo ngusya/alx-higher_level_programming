@@ -1,6 +1,5 @@
 #!/usr/bin/node
-// iterate list
-const array = ['C is fun', 'Python is cool', 'Javascript is amazing'];
-for (let step = 0; step < array.length; step++) {
-  console.log(array[step]);
+let args = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
+for (let arg in args) {
+  console.log(args[arg]);
 }
