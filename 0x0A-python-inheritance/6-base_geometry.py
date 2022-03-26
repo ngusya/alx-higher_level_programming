@@ -2,6 +2,7 @@
 """BaseGeometry
 """
 
+
 class BaseGeometry:
     """Contains a function area()
     """
