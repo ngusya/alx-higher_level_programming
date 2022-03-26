@@ -24,4 +24,3 @@ def append_after(filename="", search_string="", new_string=""):
             if search_string in line:
                 s += new_string
         fo.write(s)
-
