@@ -1,22 +1,14 @@
 #!/usr/bin/python3
-import urllib.request
-import urllib.parse
-from sys import argv
-"""
-script that takes in a url and an email, sends a POST request
-to the url with the email as parameter and displays body of the
-response
-"""
-
-
+"""Takes in a URL and an email, sends a POST request to the passed URL with the
+email as a parameter, and displays the body of the response"""
 if __name__ == "__main__":
-    """
-    """
-    info = {'email': argv[2]}
-    data = urllib.parse.urlencode(info)
+    import urllib.request
+    import urllib.parse
+    import sys
+
+    value = {'email': sys.argv[2]}
+    data = urllib.parse.urlencode(value)
     data = data.encode('ascii')
-    url = argv[1]
-    reply = urllib.request.Request(url, data)
-    with urllib.request.urlopen(reply) as rep:
-        body = rep.read()
-    print(body.decode(encoding="utf-8"))
+    req = urllib.request.Request(sys.argv[1], data)
+    with urllib.request.urlopen(req) as response:
+        print(response.read().decode("utf-8", "replace"))
