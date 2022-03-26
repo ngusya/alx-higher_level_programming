@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-"""to_json_string
 """
+Contains the "to_json_string" fundtion
+"""
+
 import json
 
-def to_json_string(my_obj):
-    """Return JSON format of my_obj
-    """
 
+def to_json_string(my_obj):
+    """returns the JSON representation of an object (string)"""
     return json.dumps(my_obj)
