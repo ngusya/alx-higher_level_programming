@@ -1,63 +1,40 @@
 #!/usr/bin/python3
-"""module for use in log debugging
 """
-
-
+reads stdin line by line and computes metrics
+"""
 import sys
 
+file_size = 0
+status_tally = {"200": 0, "301": 0, "400": 0, "401": 0,
+                "403": 0, "404": 0, "405": 0, "500": 0}
+i = 0
+try:
+    for line in sys.stdin:
+        tokens = line.split()
+        if len(tokens) >= 2:
+            a = i
+            if tokens[-2] in status_tally:
+                status_tally[tokens[-2]] += 1
+                i += 1
+            try:
+                file_size += int(tokens[-1])
+                if a == i:
+                    i += 1
+            except:
+                if a == i:
+                    continue
+        if i % 10 == 0:
+            print("File size: {:d}".format(file_size))
+            for key, value in sorted(status_tally.items()):
+                if value:
+                    print("{:s}: {:d}".format(key, value))
+    print("File size: {:d}".format(file_size))
+    for key, value in sorted(status_tally.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
 
-class DebugLog:
-    """class for use in debugging stdin logs
-    """
-    def __init__(self):
-        self.lines = []
-        self.total_size = 0
-        self.codes_200 = 0
-        self.codes_401 = 0
-        self.codes_403 = 0
-        self.codes_404 = 0
-        self.codes_405 = 0
-        self.codes_500 = 0
-        self.__current_line = 0
-
-    def __str__(self):
-        string = "File size: " + str(self.total_size) + '\n'
-        string += "200: " + str(self.codes_200) + '\n'
-        string += "401: " + str(self.codes_401) + '\n'
-        string += "403: " + str(self.codes_403) + '\n'
-        string += "404: " + str(self.codes_404) + '\n'
-        string += "405: " + str(self.codes_405) + '\n'
-        string += "500: " + str(self.codes_500)
-        return string
-
-    def update(self, iteration_n):
-        """updates current response numbers
-            with new set of lines
-        """
-        for i in range(self.__current_line, self.__current_line + iteration_n):
-            if "200" in self.lines[i]:
-                self.codes_200 += 1
-            elif "401" in self.lines[i]:
-                self.codes_401 += 1
-            elif "403" in self.lines[i]:
-                self.codes_403 += 1
-            elif "404" in self.lines[i]:
-                self.codes_404 += 1
-            elif "405" in self.lines[i]:
-                self.codes_405 += 1
-            elif "500" in self.lines[i]:
-                self.codes_500 += 1
-            words = line.split(' ')
-            self.total_size += int(words[-1])
-            self.__current_line += 1
-
-
-log = DebugLog()
-lines = []
-line = sys.stdin.readline()
-while line != "":
-    log.lines.append(line)
-    if len(log.lines) % 10 == 0:
-        log.update(10)
-        print(log)
-    line = sys.stdin.readline()
+except KeyboardInterrupt:
+    print("File size: {:d}".format(file_size))
+    for key, value in sorted(status_tally.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
