@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-
-
+"""to_json_string
+"""
 import json
 
-
 def to_json_string(my_obj):
-    """returs json string containing object's representation
-        -> handles no exceptions in serialization proccess
+    """Return JSON format of my_obj
     """
+
     return json.dumps(my_obj)
