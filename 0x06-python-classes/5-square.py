@@ -4,11 +4,11 @@
 
 class Square:
 
-  
+
     """
-    Class that defines properties of square by: (based on 4-square.py).
+    Class that defines properties of square
     Attributes:
-        size: size of a square (1 side).
+    size: size of a square (1 side).
     """
     def __init__(self, size=0):
         """Creates new instances of square.
